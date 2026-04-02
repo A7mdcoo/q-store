@@ -43,7 +43,7 @@ export default function CategoriesSection() {
       const state = sys.current;
       
       if (!state.isPaused && !state.isDragging) {
-        state.currentFloat += 0.6; // Slower, calmer speed
+        state.currentFloat += 0.55; // Calibrated speed
         container.scrollLeft = state.currentFloat;
         
         // Endless loop logic: if we move past the 7th section, jump back to the 4th
@@ -56,13 +56,8 @@ export default function CategoriesSection() {
            state.currentFloat += singleSectionWidth * 3;
            container.scrollLeft = state.currentFloat;
         }
-
-        if (Math.abs(state.currentFloat - container.scrollLeft) > 1) {
-          state.currentFloat = container.scrollLeft;
-        }
-      } else {
-        state.currentFloat = container.scrollLeft;
       }
+
       
       animationId = requestAnimationFrame(scroller);
     };
@@ -76,6 +71,16 @@ export default function CategoriesSection() {
       clearTimeout(timer);
     };
   }, []);
+
+  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const clearResumeTimeout = () => {
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
 
   const handleMouseDown = (e: React.MouseEvent) => {
     sys.current.isPaused = true;
@@ -100,6 +105,25 @@ export default function CategoriesSection() {
     if (scrollRef.current) scrollRef.current.style.cursor = 'grab';
   };
 
+  const handleTouchStart = () => {
+    sys.current.isPaused = true;
+  };
+
+  const handleTouchEnd = () => {
+    sys.current.isPaused = false;
+  };
+
+  const handleScroll = () => {
+    // If the scroll happened manually (not by our animation), sync the float
+    if (scrollRef.current && (sys.current.isPaused || sys.current.isDragging)) {
+      sys.current.currentFloat = scrollRef.current.scrollLeft;
+    }
+  };
+
+
+
+
+
   // 10x duplication to ensure seamless infinite scroll
   const displayCategories = Array(10).fill(categories).flat();
 
@@ -119,27 +143,34 @@ export default function CategoriesSection() {
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
-          onTouchStart={() => { sys.current.isPaused = true; }}
-          onTouchEnd={() => { sys.current.isPaused = false; }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onScroll={handleScroll}
           style={{
             cursor: 'grab',
-            display: 'flex', // Switched to flex for simpler width behavior
+            display: 'flex', 
             gap: 'var(--spacing-md)',
             overflowX: 'auto',
             padding: '1.5rem var(--spacing-md)',
             paddingBottom: '3rem',
             scrollbarWidth: 'none',
             scrollBehavior: 'auto',
-            userSelect: 'none',
             scrollSnapType: 'none',
-            touchAction: 'pan-y'
+            touchAction: 'auto',
+            WebkitOverflowScrolling: 'touch'
           }}
+
+
+
         >
           {displayCategories.map((category, index) => (
             <motion.div
+              layout
               key={`${category.id}-${index}`}
               style={{ flex: '0 0 auto' }}
             >
+
+
               <Link href={`/category/${category.name.toLowerCase()}`} draggable={false} style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -203,12 +234,11 @@ export default function CategoriesSection() {
         .categories-container {
           -ms-overflow-style: none;
           scrollbar-width: none;
-          scroll-snap-type: none !important;
-          scroll-behavior: auto !important;
         }
         .categories-container::-webkit-scrollbar {
           display: none;
         }
+
         .category-card:hover {
           transform: translateY(-8px);
           border-color: var(--accent-primary);
