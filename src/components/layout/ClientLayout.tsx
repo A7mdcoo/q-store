@@ -11,15 +11,18 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
       <CartProvider>
-        <Navbar />
-        <CartDrawer />
-        <main>
-          {children}
-        </main>
-        <Footer />
-        <MobileBottomNav />
+        <div className="overflow-guard">
+          <Navbar />
+          <CartDrawer />
+          <main>
+            {children}
+          </main>
+          <Footer />
+          <MobileBottomNav />
+        </div>
       </CartProvider>
     </ThemeProvider>
   );
+
 }
 

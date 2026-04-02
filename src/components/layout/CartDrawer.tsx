@@ -214,13 +214,15 @@ export function CartDrawer() {
                 </div>
                 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    <Link href="/cart" onClick={() => setIsCartOpen(false)} className="btn btn-secondary" style={{ width: '100%', fontSize: '0.9rem' }}>
+                    <button className="btn btn-secondary" style={{ width: '100%', fontSize: '0.9rem' }} onClick={(e) => e.preventDefault()}>
                         View Cart
-                    </Link>
+                    </button>
                     <button className="btn btn-primary" style={{ width: '100%', fontSize: '0.9rem', gap: '0.5rem' }}>
                         Checkout <ArrowRight size={16} />
                     </button>
                 </div>
+
+
                 
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textAlign: 'center' }}>
                     Shipping and taxes calculated at checkout

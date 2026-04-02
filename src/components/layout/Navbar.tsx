@@ -36,33 +36,35 @@ export default function Navbar() {
     }}>
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', zIndex: 51 }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', zIndex: 51 }} className="navbar-logo">
           <div style={{
             background: 'var(--accent-primary)',
             color: '#fff',
-            width: '32px',
-            height: '32px',
-            borderRadius: '8px',
+            width: '28px',
+            height: '28px',
+            borderRadius: '6px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontFamily: 'var(--font-heading)',
             fontWeight: 800,
-            fontSize: '1.2rem',
-            boxShadow: '0 0 15px var(--accent-glow)'
+            fontSize: '1rem',
+            boxShadow: '0 0 15px var(--accent-glow)',
+            flexShrink: 0
           }}>
             Q
           </div>
-          <span style={{ 
+          <span className="logo-text" style={{ 
             fontFamily: 'var(--font-heading)', 
             fontWeight: 700, 
             fontSize: '1.25rem',
             letterSpacing: '-0.02em',
-            color: 'var(--text-primary)'
+            color: 'var(--text-primary)',
           }}>   
             STORE
           </span>
         </Link>
+
 
         {/* Desktop Nav */}
         <nav style={{ display: 'none' }} className="desktop-nav">
@@ -76,53 +78,67 @@ export default function Navbar() {
 
 
         {/* Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 51 }}>
-          <ThemeToggle />
-          <button style={{ color: 'var(--text-primary)' }} aria-label="Search">
-            <Search size={22} />
+        {/* Actions Container (Danger Zone Restricted) */}
+        <div className="navbar-actions" style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          zIndex: 51, 
+          justifyContent: 'flex-end',
+          minWidth: 0,
+          flexShrink: 1
+        }}>
+          <button style={{ color: 'var(--text-primary)', padding: '0.35rem' }} aria-label="Search">
+            <Search size={20} className="nav-icon" />
           </button>
-          <div style={{ display: 'none' }} className="desktop-actions">
-            <button style={{ color: 'var(--text-primary)' }} aria-label="Wishlist">
-              <Heart size={22} />
-            </button>
+          <div className="nav-theme-toggle" style={{ transform: 'translateY(-2px)' }}>
+            <ThemeToggle />
           </div>
+
+
+
+
           <button 
-            style={{ color: 'var(--text-primary)', position: 'relative' }} 
+            style={{ color: 'var(--text-primary)', position: 'relative', padding: '0.3rem', flexShrink: 0 }} 
             aria-label="Cart"
             onClick={() => setIsCartOpen(true)}
           >
-            <ShoppingCart size={22} />
-            <span style={{
+            <ShoppingCart className="nav-icon" size={20} />
+            <span className="cart-badge" style={{
               position: 'absolute',
-              top: '-5px',
-              right: '-8px',
+              top: '-3px',
+              right: '-4px',
               background: 'var(--accent-primary)',
               color: '#fff',
               fontSize: '10px',
               fontWeight: 700,
-              width: '16px',
-              height: '16px',
+              width: '15px',
+              height: '15px',
               borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid var(--bg-primary)'
+              border: '1.5px solid var(--bg-primary)'
             }}>
               {totalItems}
             </span>
           </button>
 
+
+
           
           {/* Mobile Menu Toggle */}
           <button 
-            style={{ color: 'var(--text-primary)' }} 
+            style={{ color: 'var(--text-primary)', padding: '0.3rem', flexShrink: 0 }} 
             className="mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
+
+
+
       </div>
 
       {/* Mobile Menu Dropdown (Animated) */}
@@ -157,19 +173,53 @@ export default function Navbar() {
               </li>
               <li><Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'block' }}>Contact</Link></li>
             </ul>
-
           </motion.div>
+
+
+
+
         )}
       </AnimatePresence>
 
       <style jsx>{`
+        .desktop-nav, .desktop-actions, .desktop-search {
+          display: none;
+        }
+        @media (max-width: 767px) {
+          .navbar-wrapper {
+            padding: 0.6rem 0 !important;
+          }
+          .container {
+            padding: 0 0.5rem !important;
+          }
+          .navbar-actions {
+            gap: 0.05rem !important;
+          }
+          .logo-text {
+            display: none;
+          }
+          :global(.nav-icon) {
+            width: 20px !important;
+            height: 20px !important;
+          }
+        }
+
         @media (min-width: 768px) {
           .desktop-nav { display: block !important; }
+          .desktop-search { display: block !important; }
           .desktop-actions { display: block !important; }
+          .navbar-actions { gap: 1.5rem !important; }
           .mobile-menu-btn { display: none !important; }
           .mobile-nav-menu { display: none !important; }
         }
+
+
       `}</style>
+
+
+
+
+
     </header>
   );
 }
