@@ -34,8 +34,8 @@ export default function FeaturedDeals() {
           </Link>
         </div>
 
-        {/* Products Grid / Horizontal Scroll for Mobile */}
-        <div className="scroll-x md:scroll-grid md:grid-cols-2 lg:grid-cols-4 gap-md">
+        {/* Products Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-md">
           {featuredProducts.map((product, index) => (
             <motion.div
               key={product.id}

@@ -36,7 +36,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div className="scroll-x md:scroll-grid md:grid-cols-3 gap-md">
+        <div className="testimonials-scroll md:scroll-grid md:grid-cols-3 gap-md">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
@@ -44,6 +44,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="testimonial-card"
               style={{
                 background: 'var(--bg-secondary)',
                 padding: '2rem',
@@ -52,7 +53,7 @@ export default function Testimonials() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
-                minWidth: '280px' // For horizontal scroll
+                scrollSnapAlign: 'center',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -67,7 +68,8 @@ export default function Testimonials() {
                   fontSize: '1.25rem',
                   fontWeight: 700,
                   color: 'var(--text-primary)',
-                  boxShadow: 'var(--shadow-sm)'
+                  boxShadow: 'var(--shadow-sm)',
+                  flexShrink: 0
                 }}>
                   {testimonial.name.charAt(0)}
                 </div>
@@ -77,7 +79,7 @@ export default function Testimonials() {
                 </div>
               </div>
               
-              <p className="text-body" style={{ fontStyle: 'italic', lineHeight: 1.6 }}>
+              <p className="text-body" style={{ fontStyle: 'italic', lineHeight: 1.6, wordBreak: 'break-word' }}>
                 "{testimonial.text}"
               </p>
             </motion.div>
@@ -87,8 +89,34 @@ export default function Testimonials() {
       </div>
 
       <style jsx>{`
+        .testimonials-scroll {
+          display: flex;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          gap: var(--spacing-md);
+          padding-bottom: var(--spacing-md);
+          padding-left: var(--spacing-md);
+          padding-right: var(--spacing-md);
+          scrollbar-width: none;
+        }
+        .testimonials-scroll::-webkit-scrollbar {
+          display: none;
+        }
+        .testimonial-card {
+          min-width: 85%;
+          flex-shrink: 0;
+        }
         @media (min-width: 768px) {
+          .testimonials-scroll {
+            display: grid !important;
+            padding: 0;
+            overflow: visible;
+          }
           .md\\:grid-cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+          .testimonial-card {
+            min-width: unset;
+          }
         }
       `}</style>
     </section>

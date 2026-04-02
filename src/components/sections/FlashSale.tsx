@@ -21,7 +21,10 @@ export default function FlashSale() {
       }} />
 
       <div className="container" style={{ position: 'relative' }}>
-        <div className="grid md:grid-cols-4 gap-xl" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+        <div className="grid md:grid-cols-4" style={{ 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: 'var(--spacing-2xl)' 
+        }}>
           
           {/* Intro & Timer */}
           <div className="flex-col justify-center" style={{ gap: 'var(--spacing-lg)' }}>
@@ -62,12 +65,21 @@ export default function FlashSale() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
+                style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
               >
-                <div style={{ position: 'relative' }}>
+                <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: '100%' }}>
                   <ProductCard product={product} />
-                  {/* Stock Bar */}
-                  <div style={{ marginTop: '1rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '4px', color: 'var(--text-secondary)' }}>
+                  {/* Stock Bar Area */}
+                  <div style={{ marginTop: '1rem', padding: '0 0.5rem' }}>
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'space-between', 
+                      fontSize: '0.7rem', 
+                      marginBottom: '6px', 
+                      color: 'var(--text-secondary)',
+                      whiteSpace: 'nowrap',
+                      gap: '4px'
+                    }}>
                       <span>Available: <b>{(index * 3) + 5}</b></span>
                       <span>Sold: <b>{85 - (index * 15)}%</b></span>
                     </div>

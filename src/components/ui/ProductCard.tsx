@@ -30,7 +30,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         transition: 'transform var(--transition-base), box-shadow var(--transition-base)',
         transform: isHovered ? 'translateY(-4px)' : 'none',
         boxShadow: isHovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
-        minWidth: '240px', // For horizontal scroll on mobile
       }}
     >
       {/* Badges */}
@@ -127,6 +126,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           fontSize: '1.125rem', 
           fontWeight: 600,
           lineHeight: 1.3,
+          minHeight: '2.6em', // Reserve space for 2 lines to keep alignment
           display: '-webkit-box',
           WebkitLineClamp: 2,
           WebkitBoxOrient: 'vertical',
@@ -192,6 +192,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         @media (max-width: 767px) {
           .quick-view-overlay {
             display: none !important;
+          }
+          :global(.product-card > div:last-child) {
+            padding: 0.75rem !important;
+            gap: 0.25rem !important;
+          }
+          :global(.product-card h3) {
+            font-size: 0.9rem !important;
+          }
+          :global(.product-card .text-small) {
+            font-size: 0.7rem !important;
           }
         }
       `}</style>

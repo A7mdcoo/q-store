@@ -5,8 +5,8 @@ import { Camera } from 'lucide-react';
 
 export default function SocialProof() {
   const posts = [
-    'https://images.unsplash.com/photo-1601784551446-20c9e07cd5d3?auto=format&fit=crop&q=80&w=400',
-    'https://images.unsplash.com/photo-1592899677977-2c1c74153396?auto=format&fit=crop&q=80&w=400',
+    'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=400',
+    'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?auto=format&fit=crop&q=80&w=400',
     'https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=400',
     'https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=400',
     'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=400',
@@ -28,17 +28,24 @@ export default function SocialProof() {
         >
           <div
             style={{
-              background:
-                'linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
-              padding: '12px',
+              width: '80px',
+              height: '80px',
               borderRadius: '50%',
               marginBottom: '1rem',
-              color: '#fff',
-              boxShadow: '0 10px 20px rgba(220,39,67,0.3)',
+              overflow: 'hidden',
+              border: '2px solid var(--accent-primary)',
+              boxShadow: 'var(--shadow-glow)',
+              background: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            {/* Use Camera icon as Instagram stand-in */}
-            <Camera size={28} />
+            <img
+              src="/images/q_logo.png"
+              alt="Q Store Logo"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
           </div>
           <h2 className="h2" style={{ marginBottom: '0.5rem' }}>
             Follow Us{' '}

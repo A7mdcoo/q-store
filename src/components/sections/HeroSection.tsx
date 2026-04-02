@@ -125,8 +125,8 @@ export default function HeroSection() {
               }}
             >
               <img 
-                src="https://images.unsplash.com/photo-1622359419163-4a11f2a36b33?auto=format&fit=crop&q=80&w=800" 
-                alt="Latest Smartphone"
+                src="/images/hero_smartphone.png" 
+                alt="Premium Q Store tech presentation - floating futuristic smartphone"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               <div style={{
@@ -167,6 +167,7 @@ export default function HeroSection() {
           .hero-section {
             min-height: auto;
             padding-bottom: var(--spacing-2xl);
+            padding-top: 100px;
           }
           .hero-text {
             text-align: center;
@@ -174,6 +175,9 @@ export default function HeroSection() {
           }
           .hero-text .flex {
             justify-content: center;
+          }
+          :global(.hero-image) {
+            margin-top: 4rem !important;
           }
         }
       `}</style>

@@ -29,7 +29,7 @@ export const products: Product[] = [
     name: 'iPhone 17 Pro Max',
     price: 1199,
     originalPrice: 1299,
-    image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=600', // Unsplash mobile phone placeholder
+    image: '/images/hero_smartphone.png', // Using the high-end generated 3D render
     category: 'Smartphones',
     badge: 'HOT',
     isFeatured: true,
@@ -48,7 +48,7 @@ export const products: Product[] = [
     id: '3',
     name: 'AirPods Pro 3',
     price: 249,
-    image: 'https://images.unsplash.com/photo-1606220588913-b3aecb4b2f27?auto=format&fit=crop&q=80&w=600', // Unsplash earbuds placeholder
+    image: '/images/airpods_pro_3.png', // Premium generated 3D render
     category: 'Audio',
     badge: 'NEW',
     isFeatured: true,

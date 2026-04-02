@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import MobileBottomNav from "@/components/layout/MobileBottomNav";
-import Footer from "@/components/layout/Footer";
+import { ClientLayout } from "@/components/layout/ClientLayout";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -26,14 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
       <body className={inter.className}>
-        <Navbar />
-        <main>
+        <ClientLayout>
           {children}
-        </main>
-        <Footer />
-        <MobileBottomNav />
+        </ClientLayout>
       </body>
     </html>
   );
