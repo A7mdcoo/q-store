@@ -11,7 +11,8 @@ export default function FlashSale() {
   const flashProducts = products.filter(p => p.isFlashSale).slice(0, 3);
 
   return (
-    <section className="section" style={{ position: 'relative' }}>
+    <section id="offers" className="section" style={{ position: 'relative' }}>
+
       {/* Background with slight red/orange tint to indicate urgency */}
       <div style={{
         position: 'absolute',

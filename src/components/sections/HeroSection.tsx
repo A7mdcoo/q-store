@@ -6,7 +6,7 @@ import { ArrowRight, Flame } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section className="hero-section" style={{
+    <section id="home" className="hero-section" style={{
       position: 'relative',
       minHeight: '100vh',
       display: 'flex',
@@ -15,6 +15,7 @@ export default function HeroSection() {
       overflow: 'hidden',
       background: 'radial-gradient(ellipse at top, var(--bg-tertiary) 0%, var(--bg-primary) 70%)'
     }}>
+
       {/* Background Glow Elements */}
       <div style={{
         position: 'absolute',

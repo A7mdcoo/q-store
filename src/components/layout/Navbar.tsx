@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { Search, ShoppingCart, Heart, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import { useCart } from '@/components/providers/CartContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { setIsCartOpen, totalItems } = useCart();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,12 +67,13 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <nav style={{ display: 'none' }} className="desktop-nav">
           <ul style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <li><Link href="/" style={{ fontWeight: 500, color: 'var(--text-primary)' }}>Home</Link></li>
-            <li><Link href="/products" style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>Products</Link></li>
-            <li><Link href="/offers" style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>Deals <span className="badge">Hot</span></Link></li>
-            <li><Link href="/contact" style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>Contact</Link></li>
+            <li><Link href="/#home" style={{ fontWeight: 500, color: 'var(--text-primary)' }}>Home</Link></li>
+            <li><Link href="/#products" style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>Products</Link></li>
+            <li><Link href="/#offers" style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>Deals <span className="badge">Hot</span></Link></li>
+            <li><Link href="/#contact" style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>Contact</Link></li>
           </ul>
         </nav>
+
 
         {/* Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 51 }}>
@@ -82,7 +86,11 @@ export default function Navbar() {
               <Heart size={22} />
             </button>
           </div>
-          <button style={{ color: 'var(--text-primary)', position: 'relative' }} aria-label="Cart">
+          <button 
+            style={{ color: 'var(--text-primary)', position: 'relative' }} 
+            aria-label="Cart"
+            onClick={() => setIsCartOpen(true)}
+          >
             <ShoppingCart size={22} />
             <span style={{
               position: 'absolute',
@@ -100,9 +108,10 @@ export default function Navbar() {
               justifyContent: 'center',
               border: '2px solid var(--bg-primary)'
             }}>
-              3
+              {totalItems}
             </span>
           </button>
+
           
           {/* Mobile Menu Toggle */}
           <button 
@@ -120,10 +129,12 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            key="mobile-nav-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
+
             style={{
               position: 'absolute',
               top: '100%',
@@ -137,15 +148,16 @@ export default function Navbar() {
             className="mobile-nav-menu"
           >
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <li><Link href="/" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, display: 'block' }}>Home</Link></li>
-              <li><Link href="/products" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'block' }}>Products</Link></li>
+              <li><Link href="/#home" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, display: 'block' }}>Home</Link></li>
+              <li><Link href="/#products" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'block' }}>Products</Link></li>
               <li>
-                <Link href="/offers" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Link href="/#offers" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   Deals <span className="badge">Hot</span>
                 </Link>
               </li>
-              <li><Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'block' }}>Contact</Link></li>
+              <li><Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1.125rem', fontWeight: 500, color: 'var(--text-secondary)', display: 'block' }}>Contact</Link></li>
             </ul>
+
           </motion.div>
         )}
       </AnimatePresence>

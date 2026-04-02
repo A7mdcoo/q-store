@@ -6,7 +6,8 @@ import Link from 'next/link';
 
 export default function CTASection() {
   return (
-    <section className="section" style={{ position: 'relative', overflow: 'hidden' }}>
+    <section id="contact" className="section" style={{ position: 'relative', overflow: 'hidden' }}>
+
       
       {/* Container with distinct background */}
       <div className="container">

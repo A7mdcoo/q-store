@@ -10,7 +10,8 @@ export default function FeaturedDeals() {
   const featuredProducts = products.filter(p => p.isFeatured).slice(0, 4);
 
   return (
-    <section className="section" style={{ position: 'relative' }}>
+    <section id="products" className="section" style={{ position: 'relative' }}>
+
       <div className="container">
         
         {/* Section Header */}

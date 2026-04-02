@@ -73,6 +73,8 @@
 }
 
 html, body {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Account for navbar height */
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -81,6 +83,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
